@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Cart</title>
+    <link rel="stylesheet" href="../static/styles.css">
+</head>
+<body>
+    <header>
+        <h1>Your Cart</h1>
+        <nav>
+            <a href="/" id="home-btn">Home</a>
+            <a href="/products" id="products-btn">Products</a>
+            <a href="/cart" id="cart-btn">Cart</a>
+            <a href="/login" id="login-btn">Login</a>
+        </nav>
+    </header>
+    <main>
+        <section id="cart-items">
+            {% if cart %}
+                {% for item in cart %}
+                <div class="cart-item">
+                    <img src="{{ item['image'] }}" alt="{{ item['title'] }}" height="150px" width="180px">
+                    <h3>{{ item['title'] }}</h3>
+                    <p>{{ item['description'] }}</p>
+                    <p>Price: ${{ item['price'] }}</p>
+                    <button class="remove-from-cart" data-id="{{ item['id'] }}">Remove from Cart</button>
+                </div>
+                {% endfor %}
+                <div class="cart-total">
+                    <h2>Total: ${{ total }}</h2>
+                </div>
+                <button class="proceed-to-checkout" onclick="location.href='/checkout'">Proceed to Checkout</button>
+            {% else %}
+                <p>Your cart is empty.</p>
+            {% endif %}
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2024 E-commerce Store</p>
+    </footer>
+    <script src="../static/script.js"></script>
+</body>
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Profile</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="/" id="home-btn">Home</a>
+            <a href="/products" id="products-btn">Products</a>
+            <a href="/cart" id="cart-btn">Cart</a>
+            <a href="/logout" id="logout-btn">Logout</a>
+        </nav>
+    </header>
+    <main>
+        <section id="user-info">
+            <h1>Welcome, {{ user_name }}</h1>
+            <h2>Your Orders</h2>
+            {% if orders %}
+                <div class="order-container">
+                    {% for order in orders %}
+                    <div class="order-item">
+                        <p><strong>Date Purchased:</strong> {{ order['date_purchased'] }}</p>
+                        <img src="{{ order['image'] }}" alt="{{ order['title'] }}" height="150px" width="170px">
+                        <h3>{{ order['title'] }}</h3>
+                        <p>{{ order['description'] }}</p>
+                        <p>Price: ${{ order['price'] }}</p>
+                    </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <p>No items found in your orders.</p>
+            {% endif %}
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2024 E-commerce Store</p>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout</title>
+    <link rel="stylesheet" href="../static/styles.css">
+</head>
+<body>
+    <header>
+        <h1>Checkout</h1>
+        <nav>
+            <a href="/" id="home-btn">Home</a>
+            <a href="/products" id="products-btn">Products</a>
+            <a href="/cart" id="cart-btn">Cart</a>
+            <a href="/login" id="login-btn">Login</a>
+        </nav>
+    </header>
+    <main class="checkout-container">
+        <section class="cart-items">
+            <h2>Your Cart</h2>
+            {% if cart %}
+                {% for item in cart %}
+                    <div class="cart-item">
+                        <img src="{{ item['image'] }}" alt="{{ item['title'] }}" height="100px" width="100px">
+                        <h3>{{ item['title'] }}</h3>
+                        <p>{{ item['description'] }}</p>
+                        <p>Price: ${{ item['price'] }}</p>
+                    </div>
+                {% endfor %}
+                <div class="cart-total">
+                    <h3>Total: ${{ total }}</h3>
+                </div>
+            {% else %}
+                <p>Your cart is empty.</p>
+            {% endif %}
+        </section>
+        <section class="checkout-form-container">
+            <h2>Enter your details for Home Delivery</h2>
+            <form id="checkout-form" action="/checkout" method="POST" class="checkout-form">
+                <div class="form-group">
+                    <label for="name">Name:</label>
+                    <input type="text" id="name" name="name" placeholder="John Doe" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" placeholder="john.doe@example.com" required>
+                </div>
+                <div class="form-group">
+                    <label for="phone">Phone Number:</label>
+                    <input type="text" id="phone" name="phone" placeholder="123-456-7890" required>
+                </div>
+                <div class="form-group">
+                    <label for="address1">Home Address Line 1:</label>
+                    <input type="text" id="address1" name="address1" placeholder="123 Main St" required>
+                </div>
+                <div class="form-group">
+                    <label for="address2">Home Address Line 2:</label>
+                    <input type="text" id="address2" name="address2" placeholder="Apt 4B">
+                </div>
+                <div class="form-group">
+                    <label for="city">City:</label>
+                    <input type="text" id="city" name="city" placeholder="New York" required>
+                </div>
+                <div class="form-group">
+                    <label for="state">State:</label>
+                    <input type="text" id="state" name="state" placeholder="NY" required>
+                </div>
+                <div class="form-group">
+                    <label for="country">Country:</label>
+                    <input type="text" id="country" name="country" placeholder="USA" required>
+                </div>
+                <div class="form-group">
+                    <label for="pincode">Pin Code:</label>
+                    <input type="text" id="pincode" name="pincode" placeholder="10001" required>
+                </div>
+                <div class="form-group1">
+                    <label>Mode of Payment:</label><br>
+
+                    <input type="radio" id="debit_card" name="payment_mode" value="Debit Card" onclick="showCardDetails()" required>
+                    
+                    <label for="debit_card">Debit Card</label><br>
+                    
+                    <input type="radio" id="cod" name="payment_mode" value="Cash on Delivery" onclick="hideCardDetails()" required>
+                    
+                    <label for="cod">Cash on Delivery (COD)</label>                    
+                </div>
+                <div id="card-details" style="display: none;">
+                    <div class="form-group">
+                        <label for="card_name">Name on Card:</label>
+                        <input type="text" id="card_name" name="card_name" placeholder="John Doe">
+                    </div>
+                    <div class="form-group">
+                        <label for="card_number">16 Digit Card Number:</label>
+                        <input type="text" id="card_number" name="card_number" placeholder="1234 5678 9012 3456">
+                    </div>
+                    <div class="form-group">
+                        <label>Expiry Date:</label>
+                        <div class="expiry-container">
+                            <select id="expiry_month" name="expiry_month">
+                                <option value="" disabled selected>Month</option>
+                                {% for month in range(1, 13) %}
+                                    <option value="{{ '{:02d}'.format(month) }}">{{ '{:02d}'.format(month) }}</option>
+                                {% endfor %}
+                            </select>
+                            <select id="expiry_year" name="expiry_year">
+                                <option value="" disabled selected>Year</option>
+                                {% for year in range(2023, 2033) %}
+                                    <option value="{{ year }}">{{ year }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="cvv">CVV:</label>
+                        <input type="text" id="cvv" name="cvv" placeholder="123" maxlength="3">
+                    </div>
+                </div>
+                <button type="submit" class="proceed-to-checkout">Pay Now</button>
+            </form>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2024 E-commerce Store</p>
+    </footer>
+    <script>
+        function showCardDetails() {
+            document.getElementById('card-details').style.display = 'block';
+        }
+
+        function hideCardDetails() {
+            document.getElementById('card-details').style.display = 'none';
+        }
+    </script>
+</body>
+</html>

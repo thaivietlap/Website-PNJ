@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="../static/styles.css">
+</head>
+<body>
+    <header>
+        <h1>Welcome to Our E-commerce Store</h1>
+        <nav>
+            <a href="/" id="home-btn">Home</a>
+            <a href="/products" id="products-btn">Products</a>
+            <a href="/cart" id="cart-btn">Cart</a>
+            <a href="/login" id="login-btn">Login</a>
+        </nav>
+    </header>
+    <div class="login-container">
+        <h2>Login</h2>
+        <form id="login-form">
+            <div class="form-group">
+                <label for="login-email">Email:</label>
+                <input type="email" id="login-email" name="email" required>
+            </div>
+            <div class="form-group">
+                <label for="login-password">Password:</label>
+                <input type="password" id="login-password" name="password" required>
+            </div>
+            <button type="submit" id="login-button" class="btn">Login</button>
+        </form>
+        <p class="signup-link">No account? <a id="sign-up-btn" href="/signup">Sign up here</a></p>
+    </div>
+    <script src="../static/script.js"></script>
+</body>
+</html>

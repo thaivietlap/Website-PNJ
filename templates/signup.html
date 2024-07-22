@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up</title>
+    <link rel="stylesheet" href="../static/styles.css">
+</head>
+<body>
+    <header>
+        <h1>Welcome to Our E-commerce Store</h1>
+        <nav>
+            <a href="/" id="home-btn">Home</a>
+            <a href="/products" id="products-btn">Products</a>
+            <a href="/cart" id="cart-btn">Cart</a>
+            <a href="/login" id="login-btn">Login</a>
+        </nav>
+    </header>
+    <div class="signup-container">
+        <h2>Sign Up</h2>
+        <form id="sign-up-form">
+            <div class="form-group">
+                <label for="sign-up-name">Name:</label>
+                <input type="text" id="sign-up-name" name="name" required>
+            </div>
+            <div class="form-group">
+                <label for="sign-up-email">Email:</label>
+                <input type="email" id="sign-up-email" name="email" required>
+            </div>
+            <div class="form-group">
+                <label for="sign-up-password">Password:</label>
+                <input type="password" id="sign-up-password" name="password" required>
+            </div>
+            <button type="submit" class="sign-up-btn">Sign Up</button>
+        </form>
+    </div>
+    <script src="../static/script.js"></script>
+</body>
+</html>
