@@ -36,7 +36,8 @@
                 <h2>Items Purchased</h2>
                 {% for item in order['cart'] %}
                 <div class="cart-item">
-                    <img src="{{ item['image'] }}" alt="{{ item['title'] }}" height="150px" width="180px">
+                    <!-- <img src="{{ item['image'] }}" alt="{{ item['title'] }}" height="150px" width="180px"> -->
+                    <img src="{{ url_for('static', filename=item['images']) }}" alt="{{ item['title'] }}" height="150px" width="180px">
                     <h3>{{ item['title'] }}</h3>
                     <p>{{ item['description'] }}</p>
                     <p>Price: ${{ item['price'] }}</p>
@@ -46,7 +47,7 @@
         </div>
     </main>
     <footer>
-        <p>&copy; 2024 E-commerce Store</p>
+        <p>&copy; Thái Viết Lập</p>
     </footer>
 </body>
 </html>

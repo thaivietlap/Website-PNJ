@@ -24,7 +24,8 @@
                     {% for order in orders %}
                     <div class="order-item">
                         <p><strong>Date Purchased:</strong> {{ order['date_purchased'] }}</p>
-                        <img src="{{ order['image'] }}" alt="{{ order['title'] }}" height="150px" width="170px">
+                        <!-- <img src="{{ order['image'] }}" alt="{{ order['title'] }}" height="150px" width="170px"> -->
+                        <img src="{{ url_for('static', filename=order['image']) }}" alt="{{ order['title'] }}" height="150px" width="170px">
                         <h3>{{ order['title'] }}</h3>
                         <p>{{ order['description'] }}</p>
                         <p>Price: ${{ order['price'] }}</p>
@@ -37,7 +38,7 @@
         </section>
     </main>
     <footer>
-        <p>&copy; 2024 E-commerce Store</p>
+        <p>&copy; Thái Viết Lập</p>
     </footer>
 </body>
 </html>

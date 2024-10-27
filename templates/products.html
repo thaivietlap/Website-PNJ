@@ -8,7 +8,7 @@
 </head>
 <body>
     <header>
-        <h1>Our Products</h1>
+        <h1 style="color:white;">Our Products</h1>
         <nav>
             <a href="/" id="home-btn">Home</a>
             <a href="/products" id="products-btn">Products</a>
@@ -20,7 +20,9 @@
         <section id="product-list">
             {% for product in products %}
             <div class="product-card">
-                <img src="{{ product['image'] }}" alt="{{ product['title'] }}" height="100px" width="150px">
+                <!-- <img src="{{ product['images'] }}" alt="{{ product['title'] }}" height="100px" width="150px"> -->
+                <!-- <img src="{{ url_for('static', filename='image/1.jpg') }}" alt="{{ product['title'] }}" height="100px" width="150px"> -->
+                <img src="{{ url_for('static', filename=product['images']) }}" alt="{{ product['name'] }}" height="100px" width="150px">
                 <h3>{{ product['title'] }}</h3>
                 <p>{{ product['description'] }}</p>
                 <p>${{ product['price'] }}</p>
@@ -30,7 +32,7 @@
         </section>
     </main>
     <footer>
-        <p>&copy; 2024 E-commerce Store</p>
+        <p>&copy; Thái Viết Lập</p>
     </footer>
     <script src="../static/script.js"></script>
 </body>

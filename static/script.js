@@ -18,6 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
         try {
             // Fetch products from Fake Store API
+            // const response = await fetch('https://fakestoreapi.com/products');
             const response = await fetch('https://fakestoreapi.com/products');
             if (!response.ok) {
                 throw new Error('Failed to fetch products');

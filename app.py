@@ -1,3 +1,4 @@
+import json
 from flask import Flask, render_template, request, redirect, url_for, jsonify, session
 import hashlib, requests, mysql.connector, sqlite3
 from datetime import datetime
@@ -10,9 +11,9 @@ app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
 # Database configuration
 db_config = {
     'user': 'root',
-    'password': 'karan',
+    'password': '123456',
     'host': 'localhost',
-    'database': 'ecommerce'
+    'database': 'loginapp'
 }
 
 def get_db_connection():
@@ -37,17 +38,29 @@ def index():
         return "Error connecting to the database", 500
 
 #Navigating to the Products Page
+# @app.route('/products')
+# def products():
+#     try:
+#         # Fetch products from Fake Store API
+#         response = requests.get('E://python/python_web/rings.json')
+#         response.raise_for_status()  # Raise an HTTPError for bad responses
+#         products = response.json()
+#         return render_template('products.html', products=products)
+#     except Exception as e:
+#         print(f"Error: {e}")
+#         return "An error occurred while fetching products.", 500
 @app.route('/products')
 def products():
     try:
-        # Fetch products from Fake Store API
-        response = requests.get('https://fakestoreapi.com/products')
-        response.raise_for_status()  # Raise an HTTPError for bad responses
-        products = response.json()
+        # Đọc sản phẩm từ file rings.json
+        with open('E://python//python_web//rings.json', 'r') as file:
+            products = json.load(file)  # Tải dữ liệu JSON từ file
+        
         return render_template('products.html', products=products)
     except Exception as e:
         print(f"Error: {e}")
         return "An error occurred while fetching products.", 500
+
 
 #Navigating to the Cart Page
 @app.route('/cart', methods=['GET'])
@@ -57,6 +70,26 @@ def show_cart():
     return render_template('cart.html', cart=cart, total=total)
 
 #Triggered when an item is added to cart
+# @app.route('/add_to_cart', methods=['POST'])
+# def add_to_cart():
+#     try:
+#         product_id = request.form.get('product_id')
+#         if not product_id:
+#             return jsonify(success=False, message="Product ID is missing"), 400
+
+#         # Fetch product data from Fake Store API
+#         response = requests.get(f'https://fakestoreapi.com/products/{product_id}')
+#         response.raise_for_status()
+#         product = response.json()
+
+#         # Add product to cart session
+#         cart = session.get('cart', [])
+#         cart.append(product)
+#         session['cart'] = cart
+#         return jsonify(success=True, message="Item added to cart")
+#     except Exception as e:
+#         print(f"Error: {e}")
+#         return jsonify(success=False, message="An error occurred"), 500
 @app.route('/add_to_cart', methods=['POST'])
 def add_to_cart():
     try:
@@ -64,19 +97,25 @@ def add_to_cart():
         if not product_id:
             return jsonify(success=False, message="Product ID is missing"), 400
 
-        # Fetch product data from Fake Store API
-        response = requests.get(f'https://fakestoreapi.com/products/{product_id}')
-        response.raise_for_status()
-        product = response.json()
+        # Đọc sản phẩm từ file rings.json
+        with open('E://python//python_web//rings.json', 'r') as file:
+            products = json.load(file)  # Tải dữ liệu JSON từ file
 
-        # Add product to cart session
+        # Tìm sản phẩm theo product_id
+        product = next((p for p in products if p['id'] == int(product_id)), None)
+        if not product:
+            return jsonify(success=False, message="Product not found"), 404
+
+        # Thêm sản phẩm vào giỏ hàng
         cart = session.get('cart', [])
         cart.append(product)
         session['cart'] = cart
+
         return jsonify(success=True, message="Item added to cart")
     except Exception as e:
         print(f"Error: {e}")
         return jsonify(success=False, message="An error occurred"), 500
+
 
 #Triggered when an item is removed from the cart
 @app.route('/remove_from_cart', methods=['POST'])
@@ -259,7 +298,7 @@ def checkout():
             print("DATE:::::",date_purchased)
             cart = session.get('cart', [])
             for item in cart:
-                insert_order(email, date_purchased, item['image'], item['title'], item['description'], item['price'])
+                insert_order(email, date_purchased, item['images'], item['title'], item['description'], item['price'])
             
             session['order_details'] = {
                 'name': name, 'email': email, 'phone': phone, 'address1': address1, 'address2': address2,
