@@ -1,1 +1,2 @@
-## Website bán nhẫn PNJ môn trí tuệ nhân tạo
+## Website bán nhẫn PNJ môn Python nâng cao
+
